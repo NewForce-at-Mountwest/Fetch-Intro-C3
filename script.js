@@ -11,32 +11,26 @@
 // })
 
 
-let globallyScoped;
 
 fetch("http://localhost:8088/food")                     //go rob the bank
 .then(dirtyMoney => dirtyMoney.json())                //cleaning the money
-.then(function(cleanMoneyArray){
+.then(function(parsedFoods){
+    // Select the container where we want to print
+    const foodContainer = document.querySelector(".foodList")
 
-    ///All code using database response must go here
-
-    // console.log(cleanMoneyArray[0].name)
-    // console.log(cleanMoneyArray[1].name)
-
-
-    // for(let i=0; i < cleanMoneyArray.length; i++){
-    //     console.log(cleanMoneyArray[i].name)
-    // }
-
-    globallyScoped = cleanMoneyArray;  // won't work
-
-    cleanMoneyArray.forEach(singleItem => {
-            console.log(singleItem.name)
-    });
-
-
+    // Loop through the foods when they come back from the API
+    parsedFoods.forEach(singleFood => {
+        // For each food in the array, print it to the DOM
+        foodContainer.innerHTML += `
+        <div>
+            <h4>${singleFood.name}</h4>
+            <p>${singleFood.category}</p>
+            <p>${singleFood.ethnicity}</p>
+        </div>`
+    })
 })
 
-console.log(globallyScoped)    // Won't work
+
 
 
 
